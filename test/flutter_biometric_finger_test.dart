@@ -5,9 +5,9 @@ import 'package:flutter_biometric_finger/flutter_biometric_finger_platform_inter
 import 'package:flutter_test/flutter_test.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-class MockFlutterBiomatricFingerPlatform
+class MockFlutterBiometricFingerPlatform
     with MockPlatformInterfaceMixin
-    implements FlutterBiomatricFingerPlatform {
+    implements FlutterBiometricFingerPlatform {
   @override
   Future<ScannerDevice> initialize() async {
     return const ScannerDevice(
@@ -50,15 +50,15 @@ class MockFlutterBiomatricFingerPlatform
 }
 
 void main() {
-  final initialPlatform = FlutterBiomatricFingerPlatform.instance;
+  final initialPlatform = FlutterBiometricFingerPlatform.instance;
 
-  test('$MethodChannelFlutterBiomatricFinger is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelFlutterBiomatricFinger>());
+  test('$MethodChannelFlutterBiometricFinger is the default instance', () {
+    expect(initialPlatform, isInstanceOf<MethodChannelFlutterBiometricFinger>());
   });
 
-  test('FlutterBiomatricFinger delegates to platform', () async {
-    const scanner = FlutterBiomatricFinger();
-    FlutterBiomatricFingerPlatform.instance = MockFlutterBiomatricFingerPlatform();
+  test('FlutterBiometricFinger delegates to platform', () async {
+    const scanner = FlutterBiometricFinger();
+    FlutterBiometricFingerPlatform.instance = MockFlutterBiometricFingerPlatform();
 
     final device = await scanner.initialize();
     final scan = await scanner.scanAndExtract();

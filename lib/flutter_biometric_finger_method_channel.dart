@@ -5,9 +5,11 @@ import 'flutter_biometric_finger_platform_interface.dart';
 import 'src/scanned_finger.dart';
 import 'src/scanner_device.dart';
 
-class MethodChannelFlutterBiomatricFinger extends FlutterBiomatricFingerPlatform {
+/// An implementation of [FlutterBiometricFingerPlatform] that uses method channels.
+class MethodChannelFlutterBiometricFinger extends FlutterBiometricFingerPlatform {
+  /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('flutter_biomatric_finger');
+  final methodChannel = const MethodChannel('flutter_biometric_finger');
 
   @override
   Future<ScannerDevice> initialize() async {

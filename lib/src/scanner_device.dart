@@ -1,4 +1,6 @@
+/// Represents the hardware characteristics and state of the initialized fingerprint scanner.
 class ScannerDevice {
+  /// Constructor to initialize a [ScannerDevice] with all its hardware metadata.
   const ScannerDevice({
     required this.found,
     required this.message,
@@ -15,6 +17,7 @@ class ScannerDevice {
     required this.raw,
   });
 
+  /// Factory constructor to parse and map raw JSON or Map responses from the native method channel.
   factory ScannerDevice.fromMap(Map<String, Object?> map) {
     return ScannerDevice(
       found: map['found'] == true,
@@ -33,18 +36,43 @@ class ScannerDevice {
     );
   }
 
+  /// Whether a supported scanner was successfully located on the USB host.
   final bool found;
+
+  /// User-friendly initialization message or error description.
   final String message;
+
+  /// The operating system's device identifier/path.
   final String? device;
+
+  /// The sensor/scanner technology type name (e.g. NB65200U).
   final String? type;
+
+  /// The unique hardware serial number of the connected device.
   final String? serialNumber;
+
+  /// The model name of the connected scanner.
   final String? model;
+
+  /// The manufacturer name of the connected scanner.
   final String? manufacturer;
+
+  /// The product name of the connected scanner.
   final String? product;
+
+  /// Whether a live communication session has been opened with the scanner.
   final bool sessionOpen;
+
+  /// The standard scanning resolution width in pixels.
   final int scanWidth;
+
+  /// The standard scanning resolution height in pixels.
   final int scanHeight;
+
+  /// List of raw USB devices detected on the platform's USB host.
   final List<Map<String, Object?>> usbDevices;
+
+  /// The raw unparsed map from the native layer.
   final Map<String, Object?> raw;
 
   static int _asInt(Object? value) {

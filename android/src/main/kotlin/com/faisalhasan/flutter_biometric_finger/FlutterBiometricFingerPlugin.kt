@@ -312,6 +312,6 @@ class FlutterBiometricFingerPlugin : FlutterPlugin, MethodCallHandler {
     private class NoDeviceException : Exception()
 
     companion object {
-        private const val CHANNEL_NAME = "abetree_scanner"
+        private const val CHANNEL_NAME = "flutter_biometric_finger"
     }
 }

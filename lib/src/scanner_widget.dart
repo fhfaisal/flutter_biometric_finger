@@ -9,7 +9,13 @@ import 'scanner_controller.dart';
 // ScannerWidget
 // ════════════════════════════════════════════════════════════════════════════
 
+/// A Flutter widget that provides a ready-made user interface for fingerprint scanning.
+///
+/// Features status display, connection/lifecycle controls (Initialize, Dispose, Clear),
+/// and a list of expandable finger tiles showing progress, quality metrics, liveness score,
+/// and live fingerprint image previews.
 class ScannerWidget extends StatelessWidget {
+  /// Creates a [ScannerWidget] that uses the provided [controller] for state management.
   const ScannerWidget({
     super.key,
     required this.controller,
@@ -21,20 +27,27 @@ class ScannerWidget extends StatelessWidget {
     this.expandedByDefault = false,
   });
 
+  /// The active [ScannerController] managing the fingerprint scanning workflow.
   final ScannerController controller;
 
-  /// Called after every successful scan or rescan.
+  /// Callback triggered whenever a finger scan has been successfully captured.
   final void Function(FingerScanResult result)? onScanComplete;
 
-  /// Called whenever initialize, dispose, or scanFinger throws.
+  /// Callback triggered whenever an operation (initialization, scan, or dispose) throws an error.
   ///
-  /// [finger] is non-null only for scan errors; null for lifecycle errors
-  /// (initialize / dispose). Use it to know which finger failed.
+  /// The [finger] argument is non-null if the error occurred during a specific finger scan.
   final void Function(Object error, {Finger? finger})? onError;
 
+  /// Controls the visibility of the real-time status bar at the top of the widget.
   final bool showStatusBar;
+
+  /// Controls the visibility of the connection lifecycle control bar (Initialize/Dispose buttons).
   final bool showLifecycleBar;
+
+  /// Controls the visibility of the reset/clear results button on the lifecycle bar.
   final bool showClearButton;
+
+  /// Whether the expandable finger tiles should be expanded (showing image preview placeholders) by default.
   final bool expandedByDefault;
 
   void _handleError(Object error, {Finger? finger}) => onError?.call(error, finger: finger);

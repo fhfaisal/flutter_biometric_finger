@@ -6,8 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  final platform = MethodChannelFlutterBiomatricFinger();
-  const channel = MethodChannel('flutter_biomatric_finger');
+  final platform = MethodChannelFlutterBiometricFinger();
+  const channel = MethodChannel('flutter_biometric_finger');
 
   tearDown(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
