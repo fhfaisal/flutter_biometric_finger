@@ -12,3 +12,7 @@
 * Updated the version to 0.0.2.
 * Updated the README.md with the correct instructions for using the plugin.
 * Updated the example with the correct instructions for using the plugin.
+
+## 0.0.3
+* Updated the plugin name to flutter_biomatric_finger.
+* Updated the plugin description to flutter_biomatric_finger.

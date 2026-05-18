@@ -1,4 +1,4 @@
-group = "com.faisalhasan.abetree_scanner"
+group = "com.faisalhasan.flutter_biomatric_finger"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -52,7 +52,7 @@ tasks.whenTaskAdded { task ->
 
 
 android {
-    namespace = "com.faisalhasan.abetree_scanner"
+    namespace = "com.faisalhasan.flutter_biomatric_finger"
 
     compileSdk = 36
 
