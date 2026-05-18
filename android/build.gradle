@@ -1,0 +1,95 @@
+group = "com.faisalhasan.abetree_scanner"
+version = "1.0-SNAPSHOT"
+
+buildscript {
+    ext.kotlin_version = "2.1.0"
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.9.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+def sdkUrl = "https://github.com/fhfaisal/faisal_sdk/releases/download/v1.0.0/faisal_sdk.zip"
+def sdkDownloadDir = new File(project.buildDir, "faisal_sdk_download")
+def sdkZipFile = new File(sdkDownloadDir, "faisal_sdk.zip")
+def sdkExtractDir = new File(project.buildDir, "faisal_sdk")
+
+task downloadAndExtractSdk {
+    doLast {
+        if (!sdkExtractDir.exists()) {
+            println "Downloading SDK from ${sdkUrl}..."
+            sdkDownloadDir.mkdirs()
+            new URL(sdkUrl).withInputStream { i -> sdkZipFile.withOutputStream { it << i } }
+            println "Extracting SDK..."
+            copy {
+                from zipTree(sdkZipFile)
+                into sdkExtractDir
+            }
+        }
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("preBuild") || task.name.startsWith("assemble") || task.name.startsWith("generate")) {
+        task.dependsOn downloadAndExtractSdk
+    }
+}
+
+
+android {
+    namespace = "com.faisalhasan.abetree_scanner"
+
+    compileSdk = 36
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
+        main.jniLibs.srcDirs += new File(sdkExtractDir, "src/main/jniLibs")
+    }
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    dependencies {
+        implementation fileTree(dir: new File(sdkExtractDir, "libs"), include: ["*.jar"])
+        testImplementation("org.jetbrains.kotlin:kotlin-test")
+        testImplementation("org.mockito:mockito-core:5.0.0")
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
+}
