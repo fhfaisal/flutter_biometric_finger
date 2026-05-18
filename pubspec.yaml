@@ -1,6 +1,6 @@
 name: flutter_biometric_finger
 description: Flutter Android plugin for AbeTree and NEXT Biometrics USB fingerprint scanners with ISO template extraction and fingerprint image capture.
-version: 0.0.1
+version: 0.0.2
 
 homepage: https://github.com/fhfaisal/flutter_biometric_finger
 repository: https://github.com/fhfaisal/flutter_biometric_finger
